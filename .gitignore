@@ -1,0 +1,28 @@
+# R / RStudio
+.Rproj.user/
+.Rhistory
+.RData
+.Ruserdata
+
+# R package build
+.Rproj.user
+.Rhistory
+.RData
+.Ruserdata
+.Rproj.user
+
+# OS junk
+.DS_Store
+Thumbs.db
+
+# Large data / cache
+data-raw/
+cache/
+*.tif
+*.zip
+*.Rds
+*.rds
+
+# rgee / reticulate
+.rgee/
+*.json
