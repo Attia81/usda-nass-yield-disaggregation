@@ -38,7 +38,7 @@ source("R/03_segment_fields_pseudo_units.R")
 source("R/04_disagg_units_yield_safe.R")
 source("R/05_cluster_units_5km.R")
 source("R/06_process_county_year.R")
-source("R/02_get_weights_county_year.R")
+source("R/02_build_spatial_weights.R")
 source("R/01_ndvi_et_season.R")
 # optional: source("R/07_compute_weights_batch.R")
 
