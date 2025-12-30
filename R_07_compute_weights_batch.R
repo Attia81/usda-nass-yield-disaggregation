@@ -92,7 +92,7 @@ compute_weights_batch <- function(
           NASS_planed_area_ha  = NASS_planed_area_ha,
           NASS_harvest_area_ha = NASS_harvest_area_ha,
           lower_thresh         = 0.7,
-          upper_thresh         = 2.50,   # max ratio vs NASS area
+          upper_thresh         = 3.2,   # max ratio vs NASS area
           area_buffer_frac     = 0.15,
           pre2008_mask_strategy = "auto"
         ),
