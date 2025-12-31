@@ -190,8 +190,8 @@ for (yr in years) {
         county_name        = county_i,
         year_val           = year_i,
         beta               = b,
-        min_y_frac         = 0.01,
-        max_y_frac         = 15,
+        min_y_frac         = 0.23,
+        max_y_frac         = 3.2,
         min_abs_dynamic    = 50
       )
       
