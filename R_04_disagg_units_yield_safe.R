@@ -17,6 +17,8 @@
 #     to_crs,
 #     min_frac,
 #     max_frac,
+#     y_min_crop,
+#     y_max_crop,
 #     min_abs
 #   )
 #
@@ -32,8 +34,10 @@ disagg_units_yield_safe <- function(units_sf,
                                     year,
                                     beta = NULL,
                                     to_crs = "EPSG:4326",
-                                    min_frac = min_y_frac,   # min yield = 5% of county yield
-                                    max_frac = max_y_frac,    # max yield = 300% of county yield
+                                    min_frac = min_y_frac,   # e.g. min yield = 5% of county yield
+                                    max_frac = max_y_frac,    # e.g. max yield = 300% of county yield
+                                    y_min_crop,         # user-defined absolute min yield
+                                    y_max_crop,         # user-defined absolute max yield
                                     min_abs  = 80      # also enforce at least 50 kg/ha absolute
 ) {
   stopifnot(inherits(units_sf, "sf"))
@@ -70,12 +74,24 @@ disagg_units_yield_safe <- function(units_sf,
   #-------------------------------------------------
   # 3. Safeguards: floor + ceiling
   #-------------------------------------------------
-  # floor and ceiling in kg/ha based on county yield
-  y_floor_frac <- nass_yield_kg_ha * min_frac   # e.g. 5% of county mean
-  y_floor_abs  <- min_abs                       # e.g. at least 50 kg/ha
-  y_floor      <- max(y_floor_frac, y_floor_abs)
+  ## 3) Safeguards: NEW combined scheme
+  # relative bounds (still allowed, but weaker)
+  y_floor_rel <- nass_yield_kg_ha * min_frac
+  y_ceiling_rel <- nass_yield_kg_ha * max_frac
   
-  y_ceiling    <- nass_yield_kg_ha * max_frac   # e.g. 3x county yield
+  # combine: final floor = max(relative floor, legacy min_abs, crop minimum)
+  y_floor <- max(y_floor_rel, min_abs, y_min_crop)
+  
+  # final ceiling = min(relative ceiling, crop maximum)
+  # (so crop-specific cap cannot be broken by a high NASS)
+  y_ceiling <- min(y_ceiling_rel, y_max_crop)
+  
+  # if for some bad county y_floor > y_ceiling, we shrink floor
+  if (y_floor > y_ceiling) {
+    warning("For ", county, " ", year,
+            " floor > ceiling; relaxing floor to ceiling.")
+    y_floor <- y_ceiling
+  }
   
   yield_clamped <- pmin(pmax(yield_raw, y_floor), y_ceiling)
   
