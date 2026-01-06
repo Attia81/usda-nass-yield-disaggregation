@@ -39,10 +39,12 @@ process_county_year <- function(
     nass_yield_kg_ha,
     county_name,
     year_val,
-    beta = NULL,
-    min_y_frac = NULL,
-    max_y_frac = NULL,
-    min_abs_dynamic = NULL 
+    beta,
+    min_y_frac,
+    max_y_frac,
+    y_min_crop,
+    y_max_crop,
+    min_abs 
 ) {
   # crop/mask raster to county boundary just to be safe
   
@@ -88,7 +90,9 @@ process_county_year <- function(
     to_crs           = "EPSG:4326",
     min_frac         = min_y_frac,
     max_frac         = max_y_frac,
-    min_abs          = min_abs_dynamic
+    y_min_crop = y_min_crop,   # e.g. cotton floor
+    y_max_crop = y_max_crop,  # e.g. cotton ceiling
+    min_abs          = min_abs
   )
   
   units_with_yield <- dis$units_with_yield
