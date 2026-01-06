@@ -22,7 +22,7 @@ In the documentation and examples we demonstrate the workflow using winter wheat
 ## Repository structure
 
 - `R/01_ndvi_et_season.R` – NDVI/ET seasonal composites (rgee/OpenET).
-- `R/02_get_weights_county_year.R` – CDL mask + NDVI/ET weight generator.
+- `R/02_build_spatial_weights.R` – CDL mask + NDVI/ET weight generator.
 - `R/03_segment_fields_pseudo_units.R` – field segmentation and tiling.
 - `R/04_disagg_units_yield_safe.R` – NASS-consistent yield assignment to units.
 - `R/05_cluster_units_5km.R` – cluster units into production zones.
