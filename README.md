@@ -49,11 +49,13 @@ In the documentation and examples we demonstrate the workflow using winter wheat
 
 # 1. Initialize Earth Engine
 rgee::ee_Initialize(drive = TRUE)
+source("R00_Intialize_GEE.R)
 
 # 2. Prepare NASS tables, county shapefile, and CDL mosaics
 # (see data/README_data.md)
 
 # 3. Compute weights (optional, precompute)
+source("R_01_ndvi_et_season.R")
 source("R/02_build_spatial_weights.R")
 source("R/07_compute_weights_batch.R")
 compute_weights_batch(...)
