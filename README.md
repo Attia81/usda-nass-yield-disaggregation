@@ -49,7 +49,7 @@ In the documentation and examples we demonstrate the workflow using winter wheat
 
 # 1. Initialize Earth Engine
 rgee::ee_Initialize(drive = TRUE)
-source("R00_Intialize_GEE.R)
+source("R/00_Intialize_GEE.R")
 
 # 2. Prepare NASS tables, county shapefile, and CDL mosaics
 # (see data/README_data.md)
